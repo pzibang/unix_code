@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../apue.3e/include/apue.h
+sys/types.h
+-
+sys/stat.h
+-
+sys/termios.h
+-
+sys/ioctl.h
+-
+stdio.h
+-
+stdlib.h
+-
+stddef.h
+-
+string.h
+-
+unistd.h
+-
+signal.h
+-
+
+/home/pzbaing/codes/unix_code/main.cpp
+apue.h
+/home/pzbaing/codes/unix_code/apue.h
+dirent.h
+-
+iostream
+-
+pthread.h
+-
+error.h
+/home/pzbaing/codes/unix_code/error.h
+
