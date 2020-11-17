@@ -38,6 +38,6 @@ int main(int argc, char *argv[]){
 
     print_pids("main thread: ");
 //    sleep(1);
-
+    pthread_join(ntid, NULL);
     exit(0);
 }
