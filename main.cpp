@@ -7,37 +7,50 @@
 
 using namespace std;
 
-void print_pids(const char *s)
+
+void *thr_fun1(void *arg)
 {
-    pid_t pid;
-    pthread_t tid;
-
-    pid = getpid();
-   tid = pthread_self();
-
-   printf("%s pid %lu tid %lu (ox%lx) \n", \
-             s, (unsigned long)pid, (unsigned long)tid, (unsigned long)tid);
-
+    printf(" thread 1 returning \n  ");
+    return ( (void *)1);
 }
 
-void *thr_fun(void *arg)
+void *thr_fun2(void *arg)
 {
-    print_pids("new thread: ");
-    return ( (void *)0);
+    printf("hread 1 exiting \n ");
+    pthread_exit ( (void *)2);
 }
 
 int main(int argc, char *argv[]){
     int err;
-    pthread_t ntid;
+    pthread_t tid1, tid2;
+    void *tret;
 
-    err = pthread_create(&ntid, NULL, thr_fun, NULL);
+    err = pthread_create(&tid1, NULL, thr_fun1, NULL);
     if(err != 0)
     {
-        err_exit(err, "can't create thread");
+        err_exit(err, "can't create thread1");
     }
 
-    print_pids("main thread: ");
-//    sleep(1);
-    pthread_join(ntid, NULL);
+    err = pthread_create(&tid2, NULL, thr_fun2, NULL);
+    if(err != 0)
+    {
+        err_exit(err, "can't create thread1");
+    }
+
+    err = pthread_join(tid1, &tret);
+    if(err != 0)
+    {
+        err_exit(err, "can't join with thread1");
+    }
+    printf(" thread 1 exit code is :%ld \n ", (long)tret);
+
+    err = pthread_join(tid2, &tret);
+    if(err != 0)
+    {
+        err_exit(err, "can't join with thread1");
+    }
+    printf(" thread 2 exit code is :%ld \n ", (long)tret);
+
+
     exit(0);
 }
