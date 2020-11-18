@@ -7,23 +7,25 @@
 
 using namespace std;
 
+struct date
+{
+    int year;
+    int month;
+    int dat;
+};
 
 void *thr_fun1(void *arg)
 {
-    printf(" thread 1 returning \n  ");
-    return ( (void *)1);
-}
-
-void *thr_fun2(void *arg)
-{
-    printf("hread 1 exiting \n ");
-    pthread_exit ( (void *)2);
+    struct date tmp = {2020, 11, 18};
+    printf(" struct address :%lx  \n  ", (unsigned long)&tmp);
+    printf(" %d:%d:%d \n ", tmp.year, tmp.month, tmp.dat);
+    pthread_exit ( (void *)&tmp);
 }
 
 int main(int argc, char *argv[]){
     int err;
-    pthread_t tid1, tid2;
-    void *tret;
+    pthread_t tid1;
+    struct date *pTmp;
 
     err = pthread_create(&tid1, NULL, thr_fun1, NULL);
     if(err != 0)
@@ -31,25 +33,14 @@ int main(int argc, char *argv[]){
         err_exit(err, "can't create thread1");
     }
 
-    err = pthread_create(&tid2, NULL, thr_fun2, NULL);
-    if(err != 0)
-    {
-        err_exit(err, "can't create thread1");
-    }
-
-    err = pthread_join(tid1, &tret);
+    err = pthread_join(tid1, (void **)&pTmp);
     if(err != 0)
     {
         err_exit(err, "can't join with thread1");
     }
-    printf(" thread 1 exit code is :%ld \n ", (long)tret);
-
-    err = pthread_join(tid2, &tret);
-    if(err != 0)
-    {
-        err_exit(err, "can't join with thread1");
-    }
-    printf(" thread 2 exit code is :%ld \n ", (long)tret);
+     sleep(1);
+    printf(" struct address :%lx  \n  ",  (unsigned long)pTmp);
+    printf(" %d:%d:%d \n ", pTmp->year, pTmp->month, pTmp->dat);
 
 
     exit(0);
