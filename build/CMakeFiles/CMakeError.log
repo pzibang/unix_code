@@ -1,21 +1,21 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec2480508112/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec2480508112.dir/build.make CMakeFiles/cmTryCompileExec2480508112.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec3811010888/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3811010888.dir/build.make CMakeFiles/cmTryCompileExec3811010888.dir/build
 make[1]: 正在进入目录 `/home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp'
 /usr/bin/cmake -E cmake_progress_report /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec2480508112.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2480508112.dir/CheckSymbolExists.c.o   -c /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTryCompileExec2480508112
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2480508112.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTryCompileExec2480508112.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2480508112 -rdynamic 
-CMakeFiles/cmTryCompileExec2480508112.dir/CheckSymbolExists.c.o：在函数‘main’中：
+Building C object CMakeFiles/cmTryCompileExec3811010888.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3811010888.dir/CheckSymbolExists.c.o   -c /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3811010888
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3811010888.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3811010888.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3811010888 -rdynamic 
+CMakeFiles/cmTryCompileExec3811010888.dir/CheckSymbolExists.c.o：在函数‘main’中：
 CheckSymbolExists.c:(.text+0x16)：对‘pthread_create’未定义的引用
 collect2: error: ld returned 1 exit status
 make[1]:正在离开目录 `/home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec2480508112] 错误 1
-make: *** [cmTryCompileExec2480508112/fast] 错误 2
+make[1]: *** [cmTryCompileExec3811010888] 错误 1
+make: *** [cmTryCompileExec3811010888/fast] 错误 2
 
 File /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -35,19 +35,19 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec1515714997/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1515714997.dir/build.make CMakeFiles/cmTryCompileExec1515714997.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec1120267272/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1120267272.dir/build.make CMakeFiles/cmTryCompileExec1120267272.dir/build
 make[1]: 正在进入目录 `/home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp'
 /usr/bin/cmake -E cmake_progress_report /home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec1515714997.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec1515714997.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
-Linking C executable cmTryCompileExec1515714997
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1515714997.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec1515714997.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1515714997 -rdynamic -lpthreads 
+Building C object CMakeFiles/cmTryCompileExec1120267272.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec1120267272.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1120267272
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1120267272.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec1120267272.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1120267272 -rdynamic -lpthreads 
 /usr/bin/ld: 找不到 -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [cmTryCompileExec1515714997] 错误 1
 make[1]:正在离开目录 `/home/pzbaing/codes/unix_code/build/CMakeFiles/CMakeTmp'
-make: *** [cmTryCompileExec1515714997/fast] 错误 2
+make[1]: *** [cmTryCompileExec1120267272] 错误 1
+make: *** [cmTryCompileExec1120267272/fast] 错误 2
 
 

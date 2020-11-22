@@ -19,7 +19,7 @@ void *thr_fun1(void *arg)
     struct date tmp = {2020, 11, 18};
     printf(" struct address :%lx  \n  ", (unsigned long)&tmp);
     printf(" %d:%d:%d \n ", tmp.year, tmp.month, tmp.dat);
-    pthread_exit ( (void *)&tmp);
+    pthread_exit( (void *)&tmp);
 }
 
 int main(int argc, char *argv[]){
