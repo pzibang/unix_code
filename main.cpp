@@ -1,47 +1,49 @@
 #include "apue.h"
-#include <dirent.h>
-#include <iostream>
-#include <pthread.h>
 
-#include "error.h"
+#include<string.h>
+#include<fcntl.h>
+#include<stdlib.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
 
 using namespace std;
 
-struct date
+#define SHM_SIZE 2000 
+
+
+int main()
 {
-    int year;
-    int month;
-    int dat;
-};
-
-void *thr_fun1(void *arg)
-{
-    struct date tmp = {2020, 11, 18};
-    printf(" struct address :%lx  \n  ", (unsigned long)&tmp);
-    printf(" %d:%d:%d \n ", tmp.year, tmp.month, tmp.dat);
-    pthread_exit( (void *)&tmp);
-}
-
-int main(int argc, char *argv[]){
-    int err;
-    pthread_t tid1;
-    struct date *pTmp;
-
-    err = pthread_create(&tid1, NULL, thr_fun1, NULL);
-    if(err != 0)
+    int shmid;
+    char *shmprt;
+    shmid = shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT|0600);
+    if(shmid < 0)
     {
-        err_exit(err, "can't create thread1");
+        printf("shmget error");
     }
 
-    err = pthread_join(tid1, (void **)&pTmp);
-    if(err != 0)
+    shmprt = (char*)shmat(shmid, 0, 0);
+    if(shmprt == (void*)-1)
     {
-        err_exit(err, "can't join with thread1");
+        printf("shmat error");
     }
-     sleep(1);
-    printf(" struct address :%lx  \n  ",  (unsigned long)pTmp);
-    printf(" %d:%d:%d \n ", pTmp->year, pTmp->month, pTmp->dat);
+
+    for(int i = 0; i<SHM_SIZE; i++)
+    {
+        shmprt[i] = ('a'+ i%26);
+    }
+
+    for(int i = 0; i<SHM_SIZE; i++)
+    {
+        printf("%d:%c \n",i, shmprt[i]);
+    }    
+
+    if(shmctl(shmid, IPC_RMID, 0)<0)
+    {
+        printf("shmctl error");
+    }
 
 
-    exit(0);
+    return 0;
 }
+
+

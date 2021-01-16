@@ -6,7 +6,7 @@ project(PROJECT)
 #设置变量TARGETS，其内容为"test"
 set(TARGETS "test")
 
-set(SUBDIRS "apue.3e")
+set(SUBDIRS "./apue.3e")
 foreach(dir ${SUBDIRS})
 	aux_source_directory(${PROJECT_SOURCE_DIR}/${dir} ALL_SRC)
 	include_directories(${PROJECT_SOURCE_DIR}/${dir}/include)
