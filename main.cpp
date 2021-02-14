@@ -1,49 +1,63 @@
 #include "apue.h"
-
+#include <stdio.h>
 #include<string.h>
 #include<fcntl.h>
 #include<stdlib.h>
-#include<sys/ipc.h>
-#include<sys/shm.h>
+#include <pthread.h>
+#include <unistd.h>
 
-using namespace std;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
-#define SHM_SIZE 2000 
+void *thread1(void *arg);
+void *thread2(void *arg);
 
+u_int32_t i = 1;
 
 int main()
 {
-    int shmid;
-    char *shmprt;
-    shmid = shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT|0600);
-    if(shmid < 0)
-    {
-        printf("shmget error");
-    }
+    pthread_t thread_1;
+    pthread_t thread_2;
 
-    shmprt = (char*)shmat(shmid, 0, 0);
-    if(shmprt == (void*)-1)
-    {
-        printf("shmat error");
-    }
+    //thread_2 should create before thread_1,
+    //because if you send condition before you use pthread_cond_wait,
+    //thread_2 will wait util the next condition
+    pthread_create(&thread_2, NULL, thread2, NULL);
+    pthread_create(&thread_1, NULL, thread1, NULL);
 
-    for(int i = 0; i<SHM_SIZE; i++)
-    {
-        shmprt[i] = ('a'+ i%26);
-    }
-
-    for(int i = 0; i<SHM_SIZE; i++)
-    {
-        printf("%d:%c \n",i, shmprt[i]);
-    }    
-
-    if(shmctl(shmid, IPC_RMID, 0)<0)
-    {
-        printf("shmctl error");
-    }
-
-
+    pthread_join(thread_2, NULL);
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
     return 0;
 }
 
+void *thread1(void *arg)
+{
 
+    pthread_mutex_lock(&mutex);
+    printf("send condition\n");
+
+    //send condition
+    pthread_cond_signal(&cond);
+
+    pthread_mutex_unlock(&mutex);
+
+
+    //exit the thread, three method.
+    //return
+    pthread_exit((void*)0);
+
+}
+
+void *thread2(void *arg)
+{
+    pthread_mutex_lock(&mutex);
+    printf("thread2: wait condition \n");
+
+    //wait a condition
+    pthread_cond_wait(&cond, &mutex);
+    printf("thread2: get condition\n");
+
+    pthread_mutex_unlock(&mutex);
+    pthread_exit((void*)0);
+}

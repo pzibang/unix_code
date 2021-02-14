@@ -31,14 +31,16 @@ signal.h
 /home/pzb/codes/unix_code/main.cpp
 apue.h
 /home/pzb/codes/unix_code/apue.h
+stdio.h
+-
 string.h
 -
 fcntl.h
 -
 stdlib.h
 -
-sys/ipc.h
+pthread.h
 -
-sys/shm.h
+unistd.h
 -
 
