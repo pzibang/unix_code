@@ -5,14 +5,14 @@
 #include<stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
 void *thread1(void *arg);
 void *thread2(void *arg);
-
-u_int32_t i = 1;
+void maketimeout(struct timespec *tsp, long second);
 
 int main()
 {
@@ -35,13 +35,13 @@ void *thread1(void *arg)
 {
 
     pthread_mutex_lock(&mutex);
-    printf("send condition\n");
 
+    printf("send condition\n");
     //send condition
+    sleep(2);
     pthread_cond_signal(&cond);
 
     pthread_mutex_unlock(&mutex);
-
 
     //exit the thread, three method.
     //return
@@ -51,13 +51,33 @@ void *thread1(void *arg)
 
 void *thread2(void *arg)
 {
+    struct timespec tsp;
+    maketimeout(&tsp, 3);
     pthread_mutex_lock(&mutex);
     printf("thread2: wait condition \n");
 
-    //wait a condition
-    pthread_cond_wait(&cond, &mutex);
-    printf("thread2: get condition\n");
+    //wait a condition, 3 sec  time out 
+    if( 0 != pthread_cond_timedwait(&cond, &mutex, &tsp))
+    {
+        printf("thread2: get condition time out\n");
+    }
+    else
+    {
+        printf("thread2: get condition\n");
+    }
 
     pthread_mutex_unlock(&mutex);
     pthread_exit((void*)0);
+}
+
+void maketimeout(struct timespec *tsp, long second)
+{
+    struct timeval now;
+    gettimeofday(&now, NULL);
+
+    tsp->tv_sec = now.tv_sec;
+    tsp->tv_nsec = now.tv_usec;
+
+    tsp->tv_sec += second;
+    
 }
